@@ -1,0 +1,57 @@
+.container {
+  flex: 1;
+  background: #F3F3F3;
+  min-height: 65px;
+  max-height: 65px;
+  height: 65px;
+  border-top: solid 1px #E7E7E7;
+  display: flex;
+  padding: 15px;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.textField {
+  flex: 1;
+  height: 35px;
+  border: solid 1px #E5E5E5;
+  border-radius: 5px;
+  font-weight: 400;
+  font-size: 14px;
+  text-indent: 60px;
+}
+
+.paperclipIcon {
+  align-self: center;
+  position: absolute;
+  top: 23px;
+  left: 20px;
+  height: 25px;
+  transform: rotate(-45deg);
+  cursor: pointer;
+}
+
+.paperclipIcon path {
+  fill: #ADADAD;
+}
+
+.paperclipIcon:hover path {
+  fill: #616161;
+}
+
+.microphoneIcon {
+  align-self: center;
+  position: absolute;
+  top: 23px;
+  right: 10px;
+  height: 25px;
+  cursor: pointer;
+}
+
+.microphoneIcon path {
+  fill: #ADADAD;
+}
+
+.microphoneIcon:hover path {
+  fill: #616161;
+}

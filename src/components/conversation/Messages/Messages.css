@@ -1,0 +1,5 @@
+.container {
+  max-height: calc(100% - 65px - 65px);
+  overflow: auto;
+  flex: 1;
+}
