@@ -8,6 +8,7 @@ class MessageBuilder extends Component {
   handleKeyPress(e) {
     if (e.key === 'Enter') {
       this.props.onSubmit(e.target.value)
+      e.target.value = '';
     }
   }
 
