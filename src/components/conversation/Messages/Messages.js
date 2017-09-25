@@ -5,11 +5,6 @@ import BaseMessage from './BaseMessage'
 
 
 class Messages extends Component {
-
-  constructor() {
-    super();
-  }
-
   componentDidMount() {
     this.scrollToBottom();
   }

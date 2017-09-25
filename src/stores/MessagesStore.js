@@ -3,7 +3,7 @@ import MOCK_MESSAGES from './MOCK_MESSAGES'
 
 
 class MessagesStore {
-	@observable messageMap = {
+	@observable _messageMap = {
     0: MOCK_MESSAGES.slice(0, 9),
     1: MOCK_MESSAGES.slice(20, 23),
     3: MOCK_MESSAGES,
@@ -12,9 +12,14 @@ class MessagesStore {
     6: [],
   };
 
-	@action getMessagesById(id) {
-		return this.messageMap[id] || [];
-	}
+  get messageMap () {
+    return this._messageMap;
+  }
+  
+  @action addMessage(conversationId, message) {
+    console.log(this._messageMap)
+    this._messageMap[conversationId] = this._messageMap[conversationId].concat([message])
+  }
 }
 
 export default new MessagesStore();
