@@ -1,0 +1,101 @@
+.wrapper {
+  width: 430px;
+  margin: auto;
+  padding: 90px 55px;
+  box-sizing: border-box;
+}
+
+.formField {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 10px;
+}
+
+.formField label {
+  font-size: 14px;
+}
+
+.formField input {
+  margin: 5px 0px 10px 0px;
+  padding: 12px 15px;
+  border-radius: 5px;
+  border: 1px solid #E3E3E3;
+  outline: none;
+  font-size: 14px;
+}
+
+.formField input:focus {
+  border-color: #5898ff;
+}
+
+.formField span {
+  font-size: 12px;
+  padding: 5px 0px 15px 0px;
+  color: #FF5035;
+}
+
+.errorFormField {
+  composes: formField;
+}
+
+.errorFormField input, .errorFormField input:focus {
+  border: 1px solid #FF5035;  
+}
+
+.formButton input{
+  outline: none;
+  border: none;
+  padding: 10px;
+  background: #5898ff;
+  border-radius: 5px;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.formButton input:hover {
+  background: #4d7ef7;
+}
+
+.formError {
+  font-size: 12px;
+  padding-top: 15px;
+  color: #FF5035;
+  display: flex;
+  justify-content: center;
+}
+
+.buttonsWrapper {
+  display: flex;
+  justify-content: center;
+  min-height: 40px;
+  margin-bottom: 40px;
+}
+
+.authButtons {
+  cursor: pointer;
+  background: white;
+  border: 1px solid #E3E3E3;
+  padding: 13px 34px 14px 34px;
+  margin-right: -1px;
+  outline: none;
+  font-size: 14px;
+}
+
+.authButtons:first-of-type {
+  border-radius: 5px 0 0px 5px;
+}
+
+.authButtons:hover {
+  background: #FBFCFF;
+}
+
+.authButtons:last-of-type {
+  border-radius: 0px 5px 5px 0px;
+}
+
+.authButtons:focus {
+  background: #F0F6FF;
+  z-index: 2;
+}

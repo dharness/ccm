@@ -3,5 +3,6 @@ html, body, .root, div[data-reactroot] {
   height: 100%;
   padding: 0px;
   margin: 0px;
+  -webkit-font-smoothing: antialiased;
   font-family: Roboto, "Helvetica Neue", Arial, Helvetica, sans-serif;
 }

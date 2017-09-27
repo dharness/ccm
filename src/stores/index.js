@@ -1,9 +1,11 @@
 import conversations from './ConversationStore'
 import messages from './MessagesStore'
+import account from './AccountStore'
 
 const stores = {
   conversations,
-  messages
+  messages,
+  account
 };
 
 export default stores
