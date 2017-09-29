@@ -73,7 +73,7 @@
   margin-bottom: 40px;
 }
 
-.authButtons {
+.authButton {
   cursor: pointer;
   background: white;
   border: 1px solid #E3E3E3;
@@ -83,19 +83,25 @@
   font-size: 14px;
 }
 
-.authButtons:first-of-type {
+.authButton:first-of-type {
   border-radius: 5px 0 0px 5px;
 }
 
-.authButtons:hover {
+.authButton:hover {
   background: #FBFCFF;
 }
 
-.authButtons:last-of-type {
+.authButton:last-of-type {
   border-radius: 0px 5px 5px 0px;
 }
 
-.authButtons:focus {
+.selectedAuthButton {
+  composes: authButton;
+  background: #F0F6FF;
+  z-index: 2;
+}
+
+.selectedAuthButton:hover {
   background: #F0F6FF;
   z-index: 2;
 }

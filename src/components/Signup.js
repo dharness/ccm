@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { WonderForm, WonderField } from 'wonder-form'
 import styles from './Signup.css'
 import { observer } from 'mobx-react'
+import autobind from 'autobind-decorator'
 
 @observer(['account'])
 class Signup extends Component {
@@ -10,40 +11,67 @@ class Signup extends Component {
     super();
     this.state = {
       signupOrLogin: 'signup',
-      formError: '',
+      formError: null,
       fieldErrors: false
     }
   }
 
+  @autobind
   async submitForm(formContents) {
     const userInfo = {
       username: formContents.username.value,
       password: formContents.password.value
     }
+    const authenticate = this.state.signupOrLogin === 'signup' ? this.props.account.signup : this.props.account.login
     try {
-      await this.props.account.create(userInfo);
+      await authenticate(userInfo);
       this.props.history.push('home')
     } catch(error) {
       if (error.message === '409') {
         this.setState({formError: 'User already exists!'})
+      } else if (error.message === '401') {
+        this.setState({formError: 'Unauthorized user'})
       }
     }
   }
 
+  @autobind
   handleError(errors) {
     this.setState({fieldErrors: true})
   }
 
+  handleClick = buttonName => () => {
+    if (this.state.signupOrLogin !== buttonName) {
+      this.setState({ 
+        signupOrLogin: buttonName,
+        formError: null
+      })
+    }
+  }
+
+  getAuthButtonStyles() {
+    let signupClassName = styles.authButton
+    let loginClassName = styles.authButton
+
+    if (this.state.signupOrLogin === 'signup') {
+      signupClassName = styles.selectedAuthButton
+    } else {
+      loginClassName = styles.selectedAuthButton
+    }
+
+    return {loginClassName, signupClassName}
+  }
+
   render () {
-    const fieldClassName = this.state.fieldErrors ? styles.errorFormField : styles.formField
-    
+    const fieldClassName = this.state.fieldErrors || this.state.formError ? styles.errorFormField : styles.formField
+    const {loginClassName, signupClassName} = this.getAuthButtonStyles()
     return (
       <div className={styles.wrapper}>
         <div className={styles.buttonsWrapper}>
-          <button className={styles.authButtons}>Sign Up</button>
-          <button className={styles.authButtons}>Log In</button>
+          <button className={signupClassName} onClick={this.handleClick('signup')}>Sign Up</button>
+          <button className={loginClassName} onClick={this.handleClick('login')}>Log In</button>
         </div>
-        <WonderForm onSuccess={this.submitForm.bind(this)} onError={this.handleError.bind(this)}>
+        <WonderForm onSuccess={this.submitForm} onError={this.handleError}>
           <WonderField 
             name='username' 
             type='text' 
