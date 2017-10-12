@@ -5,11 +5,14 @@ import Conversation from './conversation/Conversation';
 import { observer, inject } from 'mobx-react'
 import styles from './../styles/Home.css';
 
-@inject('auth')
+@inject('auth', 'account')
 @observer class Home extends Component {
   render() {
     return (
       <div className={styles.container}>
+        <div className={styles.accountInfo}>
+          {this.props.account.current.id}
+        </div>
         {
           !this.props.auth.isAuthenticated &&
           <Redirect to={{

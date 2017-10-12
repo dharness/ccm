@@ -10,15 +10,18 @@ import { observer, inject } from 'mobx-react';
 @observer class Conversation extends Component {
 
   sendMessage(messageText) {
+    const from = this.props.account.current.id;
+    const to = this.props.conversations.current.id
+
     const messageToSend = {
-      from: this.props.account.current.id,
-      to: this.props.conversations.current.id,
+      from,
+      to,
       data: {
         type: 'text',
         body: messageText
       }
     }
-    this.props.conversations.addMessage(messageToSend)
+    this.props.conversations.sendMessage(messageToSend)
   }
 
   render () {
