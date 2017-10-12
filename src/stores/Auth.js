@@ -2,10 +2,17 @@ import { observable, action } from 'mobx';
 
 const apiURL = 'http://138.197.151.119/api';
 
-class AccountStore {
-  @observable token = localStorage.getItem('CCM_AUTH_TOKEN');
+class AuthStore {
+  @observable token = localStorage.getItem('__CCM_AUTH_TOKEN');
+  @observable isAuthenticated = !(localStorage.getItem('__CCM_AUTH_TOKEN') === null);
+
+  _saveToken(token) {
+    this.token = token;
+    localStorage.setItem('__CCM_AUTH_TOKEN', token)
+  }
   
-  @action signup({ username, password }) {
+  @action.bound
+  async signup({ username, password }) {
     return fetch(`${apiURL}/account.create`, {
         method: "POST",
         headers: {
@@ -15,10 +22,12 @@ class AccountStore {
     })
     .then(handleError)
     .then(res => res.json())
-    .then(({ token }) => token )
+    .then(({ token }) => this._saveToken(token) )
   }
 
-  @action async login({username, password}) {
+  @action.bound
+  async login({username, password}) {
+    console.log(this)
     return fetch(`${apiURL}/account.login`, {
         method: "POST",
         headers: {
@@ -28,7 +37,7 @@ class AccountStore {
     })
     .then(handleError)
     .then(res => res.json())
-    .then(({ token }) => token )
+    .then(({ token }) => this._saveToken(token) )
   }
 }
 
@@ -39,4 +48,4 @@ function handleError(res) {
   return res
 }
 
-export default new AccountStore();
+export default new AuthStore();

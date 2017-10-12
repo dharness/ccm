@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import Header from './Header'
 import MessageBuilder from './MessageBuilder'
 import Messages from './Messages/Messages'
-import styles from './Conversation.css'
+import styles from './../../styles/Conversation.css'
 import { observer } from 'mobx-react'
 
 

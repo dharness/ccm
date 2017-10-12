@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
-import styles from './Messages.css'
+import styles from './../../../styles/Messages.css'
 import BaseMessage from './BaseMessage'
 
 

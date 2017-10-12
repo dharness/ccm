@@ -3,7 +3,7 @@ import MenuIcon from './../../assets/images/menu.svg'
 import SearchIcon from './../../assets/images/search.svg'
 import XIcon from './../../assets/images/x.svg'
 import ConversationPreview from './ConversationPreview'
-import styles from './Sidebar.css';
+import styles from './../../styles/Sidebar.css';
 import { observer } from 'mobx-react';
 
 
@@ -43,6 +43,10 @@ class Sidebar extends Component {
     this.handleSearchInputClear = this.handleSearchInputClear.bind(this);
   }
 
+  componentDidMount() {
+    this.props.conversations.load()
+  }
+
   handleSearchInputChange(e) {
     this.setState({
       searchInput: e.target.value
@@ -58,6 +62,7 @@ class Sidebar extends Component {
   }
 
   render () {
+    console.log(this.props.conversations.all)
     const { activeConversationId } = this.props.conversations;
     return (
       <div className={styles.container}>
@@ -67,6 +72,7 @@ class Sidebar extends Component {
           searchInput={this.state.searchInput}
         />
         {this.props.conversations.all.map((c, i) => {
+          c.name = c.id
           return <ConversationPreview
               {...c}
               id={i}
