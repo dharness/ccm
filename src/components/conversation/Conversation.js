@@ -3,23 +3,30 @@ import Header from './Header'
 import MessageBuilder from './MessageBuilder'
 import Messages from './Messages/Messages'
 import styles from './../../styles/Conversation.css'
-import { observer } from 'mobx-react'
+import { observer, inject } from 'mobx-react';
 
 
-@observer(['messages', 'conversations'])
-class Conversation extends Component {
+@inject('account', 'conversations')
+@observer class Conversation extends Component {
 
-  sendMessage(message) {
-    const { activeConversationId } = this.props.conversations;
-    this.props.messages.addMessage(activeConversationId, {fromId: 1, body: message})
+  sendMessage(messageText) {
+    const messageToSend = {
+      from: this.props.account.current.id,
+      to: this.props.conversations.current.id,
+      data: {
+        type: 'text',
+        body: messageText
+      }
+    }
+    this.props.conversations.addMessage(messageToSend)
   }
 
   render () {
-    const { activeConversationId } = this.props.conversations;
+    const currentConversation = this.props.conversations.current || {}
     return (
       <div className={styles.container}>
         <Header name={'Naila Nur'} phoneNumber={'(226) 224-8403'}/>
-        <Messages messageList={this.props.messages.messageMap[activeConversationId]} />
+        <Messages messageList={currentConversation.messages} />
         <MessageBuilder onSubmit={this.sendMessage.bind(this)}/>
       </div>
     )
