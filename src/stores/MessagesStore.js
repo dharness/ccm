@@ -18,7 +18,6 @@ class MessagesStore {
   }
   
   @action addMessage(conversationId, message) {
-    console.log(this._messageMap)
     this._messageMap[conversationId] = this._messageMap[conversationId].concat([message])
   }
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import styles from './Header.css'
+import styles from './../../styles/Header.css'
 import MenuIcon from './../../assets/images/menu.svg'
 
 class Header extends Component {

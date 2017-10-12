@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import styles from './MessageBuilder.css'
+import styles from './../../styles/MessageBuilder.css'
 import PaperclipIcon from './../../assets/images/paperclip.svg'
 import MicrophoneIcon from './../../assets/images/microphone.svg'
 

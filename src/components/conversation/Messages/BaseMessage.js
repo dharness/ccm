@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import styles from './BaseMessage.css'
+import styles from './../../../styles/BaseMessage.css'
 
 class BaseMessage extends Component {
 

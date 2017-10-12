@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { BrowserRouter, Route } from 'react-router-dom'
 import App from './App';
-import styles from './base.css'
+import styles from './styles/base.css'
 import registerServiceWorker from './registerServiceWorker';
 import stores from './stores'
 import { useStrict } from 'mobx';

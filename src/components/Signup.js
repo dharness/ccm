@@ -1,16 +1,16 @@
 import React, { Component } from 'react'
 import { WonderForm, WonderField } from 'wonder-form'
-import styles from './Signup.css'
+import styles from './../styles/Signup.css'
 import { observer } from 'mobx-react'
 import autobind from 'autobind-decorator'
 
-@observer(['account'])
+@observer(['auth'])
 class Signup extends Component {
 
   constructor() {
     super();
     this.state = {
-      signupOrLogin: 'signup',
+      signupOrLogin: 'login',
       formError: null,
       fieldErrors: false
     }
@@ -22,7 +22,7 @@ class Signup extends Component {
       username: formContents.username.value,
       password: formContents.password.value
     }
-    const authenticate = this.state.signupOrLogin === 'signup' ? this.props.account.signup : this.props.account.login
+    const authenticate = this.state.signupOrLogin === 'signup' ? this.props.auth.signup : this.props.auth.login
     try {
       await authenticate(userInfo);
       this.props.history.push('home')
@@ -68,8 +68,8 @@ class Signup extends Component {
     return (
       <div className={styles.wrapper}>
         <div className={styles.buttonsWrapper}>
-          <button className={signupClassName} onClick={this.handleClick('signup')}>Sign Up</button>
           <button className={loginClassName} onClick={this.handleClick('login')}>Log In</button>
+          <button className={signupClassName} onClick={this.handleClick('signup')}>Sign Up</button>
         </div>
         <WonderForm onSuccess={this.submitForm} onError={this.handleError}>
           <WonderField 

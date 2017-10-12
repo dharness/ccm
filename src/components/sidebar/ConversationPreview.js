@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import styles from './ConversationPreview.css';
+import styles from './../../styles/ConversationPreview.css';
 import Avatar from 'react-avatar';
 
 export default class ConversationPreview extends Component {
