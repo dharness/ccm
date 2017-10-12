@@ -1,6 +1,6 @@
 import { observable } from 'mobx';
 import auth from './Auth';
-import accounts from './Accounts';
+import account from './Accounts';
 import messageBroker from './../services/MessageBroker'
 
 const apiURL = `http://${process.env.REACT_APP_SERVER_URL}/api`;
@@ -21,10 +21,15 @@ class ConversationStore {
 		.then(res => res.json())
 		.then(res => {
 			const all = {}
-			res.conversations.forEach(convo => {
-				all[convo.id] = convo
+			res.conversations.forEach((convo, i) => {
+				const conversationId = convo.members
+				.filter(memberId => memberId !== account.current.id)
+				.join('')
+				convo.id = conversationId
+				all[conversationId] = convo
+				if (i === 0)
+					this._activeConversationId = conversationId
 			})
-			this._activeConversationId = res.conversations[0].id
 			this.all = all
 		})
 	}
@@ -34,8 +39,12 @@ class ConversationStore {
 	}
 
 	addMessage(message) {
-		messageBroker.sendMessage(message)
 		this.current.messages = [...this.current.messages, message]
+	}
+
+	sendMessage(message) {
+		messageBroker.sendMessage(message)
+		this.addMessage(message)
 	}
 
 	get activeConversationId() {

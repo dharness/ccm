@@ -31,7 +31,7 @@ const Header = (props) => {
   )
 }
 
-@inject('conversations')
+@inject('account', 'conversations')
 @observer class Sidebar extends Component {
 
   constructor() {
@@ -63,6 +63,7 @@ const Header = (props) => {
 
   render () {
     const { activeConversationId } = this.props.conversations;
+    const currentAccountId = this.props.account.current.id
     return (
       <div className={styles.container}>
         <Header
@@ -72,7 +73,7 @@ const Header = (props) => {
         />
         {Object.keys(this.props.conversations.all).map((key, i) => {
           const c = this.props.conversations.all[key];
-          c.name = c.id
+          c.name = c.members.filter(memberId => memberId !== currentAccountId).join('')
           return <ConversationPreview
               {...c}
               id={c.id}
