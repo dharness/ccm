@@ -1,14 +1,15 @@
 import { observable, action } from 'mobx';
 
-const apiURL = 'http://138.197.151.119/api';
+const apiURL = `http://${process.env.REACT_APP_SERVER_URL}/api`
 
 class AuthStore {
   @observable token = localStorage.getItem('__CCM_AUTH_TOKEN');
   @observable isAuthenticated = !(localStorage.getItem('__CCM_AUTH_TOKEN') === null);
 
-  _saveToken(token) {
+  _saveSession(token, account) {
     this.token = token;
     localStorage.setItem('__CCM_AUTH_TOKEN', token)
+    localStorage.setItem('__CCM_ACCOUNT_ID', account.id)
   }
   
   @action.bound
@@ -22,12 +23,11 @@ class AuthStore {
     })
     .then(handleError)
     .then(res => res.json())
-    .then(({ token }) => this._saveToken(token) )
+    .then(res => this._saveSession(res.token, res.account))
   }
 
   @action.bound
   async login({username, password}) {
-    console.log(this)
     return fetch(`${apiURL}/account.login`, {
         method: "POST",
         headers: {
@@ -37,7 +37,9 @@ class AuthStore {
     })
     .then(handleError)
     .then(res => res.json())
-    .then(({ token }) => this._saveToken(token) )
+    .then(res => {
+      this._saveSession(res.token, res.account)
+    })
   }
 }
 

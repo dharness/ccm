@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import { WonderForm, WonderField } from 'wonder-form'
 import styles from './../styles/Signup.css'
-import { observer } from 'mobx-react'
+import { observer, inject } from 'mobx-react'
 import autobind from 'autobind-decorator'
 
-@observer(['auth'])
-class Signup extends Component {
+@inject('auth')
+@observer class Signup extends Component {
 
   constructor() {
     super();

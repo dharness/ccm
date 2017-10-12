@@ -2,9 +2,11 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import styles from './../../../styles/Messages.css'
 import BaseMessage from './BaseMessage'
+import { observer, inject } from 'mobx-react';
 
 
-class Messages extends Component {
+@inject('account')
+@observer class Messages extends Component {
   componentDidMount() {
     this.scrollToBottom();
   }
@@ -22,12 +24,12 @@ class Messages extends Component {
   render () {
     return (
       <div className={styles.container}>
-        {this.props.messageList.map((messageData, i) => {
+        {this.props.messageList && this.props.messageList.map((message, i) => {
           return (
             <BaseMessage
               key={i}
-              isSent={messageData.fromId === 1}
-              messageBody={messageData.body}
+              isSent={message.from === this.props.account.current.id}
+              messageBody={message.data.body}
             />)
         })}
         <div style={{ float:"left", clear: "both" }}

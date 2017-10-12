@@ -4,7 +4,7 @@ import SearchIcon from './../../assets/images/search.svg'
 import XIcon from './../../assets/images/x.svg'
 import ConversationPreview from './ConversationPreview'
 import styles from './../../styles/Sidebar.css';
-import { observer } from 'mobx-react';
+import { observer, inject } from 'mobx-react';
 
 
 const Header = (props) => {
@@ -31,8 +31,8 @@ const Header = (props) => {
   )
 }
 
-@observer(['conversations'])
-class Sidebar extends Component {
+@inject('conversations')
+@observer class Sidebar extends Component {
 
   constructor() {
     super();
@@ -62,7 +62,6 @@ class Sidebar extends Component {
   }
 
   render () {
-    console.log(this.props.conversations.all)
     const { activeConversationId } = this.props.conversations;
     return (
       <div className={styles.container}>
@@ -71,14 +70,15 @@ class Sidebar extends Component {
           onSeachInputChange={this.handleSearchInputChange}
           searchInput={this.state.searchInput}
         />
-        {this.props.conversations.all.map((c, i) => {
+        {Object.keys(this.props.conversations.all).map((key, i) => {
+          const c = this.props.conversations.all[key];
           c.name = c.id
           return <ConversationPreview
               {...c}
-              id={i}
+              id={c.id}
               key={i}
               onClick={this.handleConversationSelected.bind(this)}
-              isActive={i === activeConversationId}
+              isActive={c.id === activeConversationId}
             />
         })}
       </div>
