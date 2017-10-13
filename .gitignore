@@ -6,6 +6,10 @@
 # testing
 /coverage
 
+# ENV
+.env.*
+.env.*
+
 # production
 /build
 /dist

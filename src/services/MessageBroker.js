@@ -8,7 +8,8 @@ class MessageBroker {
   constructor() {
     const { token } = auth
     this.client = new WebSocket(`${SOCKET_URL}?token=${token}`);
-
+    console.log(SOCKET_URL)
+    
     this.client.onmessage = this.handleMessage
     this.client.onerror = err => console.log(err);
   }
