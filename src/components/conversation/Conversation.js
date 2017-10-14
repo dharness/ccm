@@ -4,10 +4,15 @@ import MessageBuilder from './MessageBuilder'
 import Messages from './Messages/Messages'
 import styles from './../../styles/Conversation.css'
 import { observer, inject } from 'mobx-react';
+import messageBroker from './../../services/MessageBroker'
 
 
-@inject('account', 'conversations')
+@inject('auth', 'account', 'conversations')
 @observer class Conversation extends Component {
+
+  componentDidMount() {
+    messageBroker.connect(this.props.auth.token)
+  }
 
   sendMessage(messageText) {
     const from = this.props.account.current.id;

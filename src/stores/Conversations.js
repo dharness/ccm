@@ -23,8 +23,9 @@ class ConversationStore {
 			const all = {}
 			res.conversations.forEach((convo, i) => {
 				const conversationId = convo.members
-				.filter(memberId => memberId !== account.current.id)
-				.join('')
+					.filter(memberId => memberId !== account.current.id)
+					.join('')
+
 				convo.id = conversationId
 				all[conversationId] = convo
 				if (i === 0)
@@ -38,13 +39,15 @@ class ConversationStore {
 		return this.all[this._activeConversationId]
 	}
 
-	addMessage(message) {
-		this.current.messages = [...this.current.messages, message]
+	receiveMessage(message) {
+		const conversation = this.all[message.from]
+		conversation.messages = [...conversation.messages, message]
 	}
 
 	sendMessage(message) {
 		messageBroker.sendMessage(message)
-		this.addMessage(message)
+		const conversation = this.all[message.to]
+		conversation.messages = [...conversation.messages, message]
 	}
 
 	get activeConversationId() {

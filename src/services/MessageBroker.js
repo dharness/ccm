@@ -1,14 +1,11 @@
-import auth from './../stores/Auth'
 import conversations from './../stores/Conversations'
 const SOCKET_URL = `ws://${process.env.REACT_APP_SERVER_URL}`
 
 
 class MessageBroker {
 
-  constructor() {
-    const { token } = auth
+  connect(token) {
     this.client = new WebSocket(`${SOCKET_URL}?token=${token}`);
-    console.log(SOCKET_URL)
     
     this.client.onmessage = this.handleMessage
     this.client.onerror = err => console.log(err);
@@ -16,7 +13,7 @@ class MessageBroker {
 
   handleMessage({ data: rawData }) {
     const message = JSON.parse(rawData)
-    conversations.addMessage(message)
+    conversations.receiveMessage(message)
   }
 
   sendMessage(message) {
